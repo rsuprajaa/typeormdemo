@@ -11,7 +11,7 @@ export default abstract class Entity extends BaseEntity {
 	@Index()
 	@PrimaryGeneratedColumn('uuid')
 	id: string
-	// CREATED ATT CHANGEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+
 	@CreateDateColumn()
 	createdAt: Date
 

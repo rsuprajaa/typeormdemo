@@ -5,6 +5,8 @@ import express from 'express'
 import 'reflect-metadata'
 import { createConnection } from 'typeorm'
 import authRoutes from './routes/auth'
+import userRoutes from './routes/user'
+import videoRoutes from './routes/video'
 
 dotenv.config()
 
@@ -20,6 +22,8 @@ app.use(
 )
 
 app.use('/api/auth', authRoutes)
+app.use('/api/video', videoRoutes)
+app.use('/api/user', userRoutes)
 
 const port = process.env.PORT || 5000
 createConnection()

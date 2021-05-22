@@ -1,8 +1,9 @@
 import bcrypt from 'bcrypt'
 import { Exclude } from 'class-transformer'
 import { IsEmail, Length } from 'class-validator'
-import { BeforeInsert, Column, Entity as TOEntity } from 'typeorm'
+import { BeforeInsert, Column, Entity as TOEntity, OneToMany } from 'typeorm'
 import Entity from './Entity'
+import { Video } from './Video'
 
 export enum UserRole {
 	ADMIN = 'admin',
@@ -37,6 +38,9 @@ export class User extends Entity {
 		default: UserRole.USER,
 	})
 	role: UserRole
+
+	@OneToMany(() => Video, (video) => video.user)
+	videos: Video[]
 
 	@BeforeInsert()
 	async hashPassword() {
