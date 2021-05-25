@@ -12,12 +12,9 @@ export const addVideo = async (req: Request, res: Response) => {
 		if (!videoCode) {
 			res.status(500).json({ msg: 'Video should have a url' })
 		}
-		const url = await cloudinary.v2.uploader.upload(videoCode)
 		const video = new Video({
 			title,
 			description,
-			cloudName: process.env.CLOUDINARY_NAME,
-			publicId: url.public_id,
 			user,
 		})
 		await video.save()
