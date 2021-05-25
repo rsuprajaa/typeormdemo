@@ -1,26 +1,37 @@
 import { Request, Response } from 'express'
-import { cloudinary } from '../cloudinary'
+import cloudinary from '../cloudinary'
 import { Video } from '../entity/Video'
+
+//define multer optionsb
 
 export const addVideo = async (req: Request, res: Response) => {
 	try {
 		const { title, description, videoCode } = req.body
+		console.log(req.file)
 		const { user } = res.locals
-		if (!title) {
-			res.status(500).json({ msg: 'Video should have a title' })
-		}
-		if (!videoCode) {
-			res.status(500).json({ msg: 'Video should have a url' })
-		}
-		const video = new Video({
-			title,
-			description,
-			user,
-		})
-		await video.save()
-		return res.status(200).json(video)
+		const uploadedVideo = await cloudinary.v2.uploader.upload(
+			req.file.path,
+			{ resource_type: 'video', chunk_size: 6000000 },
+			function (error, result) {
+				console.log(result, error)
+			}
+		)
+		console.log(uploadedVideo)
+		// if (!title) {
+		// 	res.status(500).json({ msg: 'Video should have a title' })
+		// }
+		// if (!videoCode) {
+		// 	res.status(500).json({ msg: 'Video should have a url' })
+		// }
+		// const video = new Video({
+		// 	title,
+		// 	description,
+		// 	user,
+		// })
+		// await video.save()
+		return res.status(200).json('works')
 	} catch (err) {
-		return res.status(500).json({ msg: 'Something went wrong' })
+		return res.status(500).json({ msg: err })
 	}
 }
 
