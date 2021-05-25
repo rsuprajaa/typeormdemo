@@ -1,12 +1,15 @@
 {
 	"type": "postgres",
-	"host": "localhost",
-	"port": 5432,
-	"username": "supraja",
-	"password": "supraja",
+	"url": "postgres://bumujjrajxpobv:d46be119e5dac52752061a03da0670ad23672b79c891791930504158ff84bc5d@ec2-3-91-127-228.compute-1.amazonaws.com:5432/dbd1arrp444f2m",
 	"database": "yt",
 	"synchronize": true,
 	"logging": true,
+	"ssl": true,
+	"extra": {
+		"ssl": {
+			"rejectUnauthorized": false
+		}
+	},
 	"entities": ["build/entity/*.js"],
 	"migrations": ["build/migration/*.js"],
 	"cli": {

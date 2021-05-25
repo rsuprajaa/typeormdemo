@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import cloudinary from '../cloudinary'
+import v2 from '../cloudinary'
 import { Video } from '../entity/Video'
 
 //define multer optionsb
@@ -9,7 +9,7 @@ export const addVideo = async (req: Request, res: Response) => {
 		const { title, description, videoCode } = req.body
 		console.log(req.file)
 		const { user } = res.locals
-		const uploadedVideo = await cloudinary.v2.uploader.upload(
+		const uploadedVideo = await v2.uploader.upload(
 			req.file.path,
 			{ resource_type: 'video', chunk_size: 6000000 },
 			function (error, result) {
